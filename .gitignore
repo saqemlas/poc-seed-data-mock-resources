@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+
+# misc
+.DS_Store
+.temp
+
+# VSCode
+.history
+.vscode
+!.vscode/settings.json
+
+# IntelliJ
+.idea/
+*.iml
+
+# node
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+build/
+dist/
+node_modules/
+.serverless
+.husky

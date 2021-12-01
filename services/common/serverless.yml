@@ -1,0 +1,63 @@
+service: common
+
+variablesResolutionMode: 20210326
+
+projectDir: ..
+
+plugins:
+  - serverless-s3-cleaner
+  - serverless-scriptable-plugin
+
+custom:
+  project: ${file(../config.yml):project}
+  baseName: ${self:custom.project}-${self:service}-${self:provider.stage}
+
+  serverless-s3-cleaner:
+    buckets:
+      - ${cf:${self:custom.baseName}.ServerlessDeploymentBucketName, ''}
+  
+  scriptable:
+    hooks:
+      after:aws:deploy:deploy:updateStack:
+        - insert-items.js
+
+  deletePolicyByEnv:
+    prod: Retain
+  DeletePolicy: ${self:custom.deletePolicyByEnv.${self:provider.stage}, 'Delete'}
+
+
+provider:
+  name: aws
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, 'dev'}
+  stackName: ${self:custom.baseName}
+  stackTags: ${file(../config.yml):tags}
+  deploymentBucket:
+    blockPublicAccess: true
+
+
+resources:  
+  Resources:
+
+    DynamoTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: ${self:custom.DeletePolicy}
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
+    
+    DynamoTableNameParam:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: /${self:custom.project}/${self:provider.stage}/${self:service}/tableName
+        Value: !Ref DynamoTable
+        Type: String

@@ -1,0 +1,16 @@
+{
+  "name": "@serverless-template/mock-external-api",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "clean": "rimraf node_modules .serverless",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
+  },
+  "dependencies": {
+    "@serverless-template/common": "1.0.0"
+  },
+  "devDependencies": {
+    "@serverless-template/config": "1.0.0"
+  }
+}

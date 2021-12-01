@@ -1,0 +1,8 @@
+.serverless
+node_modules
+
+.gitignore
+.eslintignore
+lerna.json
+package.json
+tsconfig.json

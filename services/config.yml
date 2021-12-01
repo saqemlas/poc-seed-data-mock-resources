@@ -1,0 +1,27 @@
+project: template
+
+contacts:
+  alarms: example@email.com
+
+tags:
+  stack: ${self:custom.baseName}
+  service: ${self:service}
+  project: ${self:custom.project}
+  stage: ${self:provider.stage}
+
+fallbackEnvPerEnv:
+  prod: prod
+  staging: staging
+fallbackEnv: ${file(../config.yml):fallbackEnvPerEnv.${self:provider.stage}, 'test'}
+
+tracingPerEnv:
+  prod: true
+  staging: true
+  test: false
+tracing: ${file(../config.yml):tracingPerEnv.${self:provider.stage}, false}
+
+logLevelPerEnv:
+  prod: info
+  staging: info
+  test: debug
+logLevel: ${file(../config.yml):logLevelPerEnv.${self:provider.stage}, 'debug'}

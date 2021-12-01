@@ -1,0 +1,20 @@
+{
+  "name": "@serverless-template/api",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "clean": "rimraf node_modules .serverless",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
+  },
+  "dependencies": {
+    "@serverless-template/common": "1.0.0",
+    "@serverless-template/external-api": "1.0.0",
+    "@serverless-template/mock-external-api": "1.0.0",
+    "@aws-sdk/client-dynamodb": "3.43.0",
+    "axios": "0.24.0"
+  },
+  "devDependencies": {
+    "@serverless-template/config": "1.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@serverless-template/poc-seed-mock-services",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "workspaces": [
+    "services/*"
+  ],
+  "scripts": {
+    "clean": "lerna run clean --stream --parallel -- && rimraf node_modules && yarn cache clean",
+    "deploy:dev": "lerna run deploy --stream --ignore '@serverless-template/external-api' --",
+    "deploy:prod": "lerna run deploy --stream --ignore '@serverless-template/mock-external-api' --",
+    "remove": "lerna ls --toposort | tac | xargs -I % lerna run --stream --no-bail --scope % remove --"
+  },
+  "devDependencies": {
+    "lerna": "4.0.0",
+    "rimraf": "3.0.2"
+  }
+}

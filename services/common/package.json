@@ -1,0 +1,17 @@
+{
+  "name": "@serverless-template/common",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "clean": "rimraf node_modules .serverless",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
+  },
+  "dependencies": {
+    "winston": "3.3.3"
+  },
+  "devDependencies": {
+    "@serverless-template/config": "1.0.0",
+    "@types/serverless": "1.78.39"
+  }
+}
